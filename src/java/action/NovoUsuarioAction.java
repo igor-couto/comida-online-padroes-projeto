@@ -35,6 +35,7 @@ public class NovoUsuarioAction implements Action{
             Usuario usuario = new Usuario(nome, email, senha, Boolean.getBoolean(recebeNotificacao));
             try {
                 UsuarioDAO.getInstance().Save(usuario);
+                response.sendRedirect("novo_usuario_sucesso.jsp");
             } catch (SQLException ex) {
                 Logger.getLogger(NovoUsuarioAction.class.getName()).log(Level.SEVERE, null, ex);
             }
