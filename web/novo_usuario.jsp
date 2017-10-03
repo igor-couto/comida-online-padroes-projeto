@@ -11,13 +11,13 @@
     </head>
     <body>
         <div class="log-form">
-          <h2>Faça Login na sua conta!</h2>
-          <form action="FrontController?action=Login" method="post">
-                <input type="text" title="email" placeholder="email" name="email"/>
-                <input type="password" title="senha" placeholder="senha" name="senha"/>
-                <button type="submit" class="btn">Entrar</button>
-                <a class="forgot" href="novo_usuario">Criar uma conta</a>
-                <p class="bg-danger" style="margin-top: 10%;"> Login inválido. Nome de usuário ou senha incorretos.</p>
+          <h2>Bem vindo! Crie sua conta</h2>
+          <form action="FrontController?action=NovoUsuario" method="post">
+              <input type="text" name ="nome" title="nome" placeholder="nome" />
+              <input type="text" name ="email" title="email" placeholder="email" />
+              <input type="password" name ="senha" title="senha" placeholder="senha" />
+              <button type="submit" class="btn">Criar</button>
+              <a class="forgot" href="index.jsp">Voltar</a>
           </form>
         </div>       
         
