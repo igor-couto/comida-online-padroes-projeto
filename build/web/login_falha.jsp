@@ -16,7 +16,7 @@
                 <input type="text" title="email" placeholder="email" name="email"/>
                 <input type="password" title="senha" placeholder="senha" name="senha"/>
                 <button type="submit" class="btn">Entrar</button>
-                <a class="forgot" href="#">Criar uma conta</a>
+                <a class="forgot" href="novo_usuario">Criar uma conta</a>
                 <p class="bg-danger" style="margin-top: 10%;"> Login inválido. Nome de usuário ou senha incorretos.</p>
           </form>
         </div>       
