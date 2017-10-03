@@ -35,7 +35,6 @@ public class ProdutoDAO {
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
-                
                 Produto p = new Produto(rs.getInt("idProduto"),rs.getString("nome"),rs.getFloat("preco"),rs.getString("descricao"));
                 produtos.add(p);
                 

@@ -18,6 +18,16 @@
               </ul>
           
         </div>       
+        <div class="">
+          <h2>Carrinho</h2>
+          
+              <ul>
+                  ${cart}
+              </ul>
+              <form action="FrontController?action=FechaPedido">
+                  <input type="submit" value="Fechar pedido"/>
+              </form>
+        </div>
         
     </body>
 </html>

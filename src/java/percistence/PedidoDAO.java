@@ -74,8 +74,10 @@ public class PedidoDAO {
             stmt.setString(1, Integer.toString(pedido.getId()));
 
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();
-            
-            System.out.println("Total produtos: "+produtos.size());
+
+            stmt = conn.prepareStatement("DELETE FROM produtosPedido WHERE idPedido=?");
+            stmt.setString(1, Integer.toString(pedido.getId()));
+            stmt.executeUpdate();
             
             for (Produto prod : produtos) {
                 stmt = conn.prepareStatement("INSERT INTO produtosPedido (idPedido,idProduto,quantidade) values (?, ?, 1) ON DUPLICATE KEY UPDATE quantidade=1");
@@ -116,6 +118,8 @@ public class PedidoDAO {
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
                 pedido.setProdutos(produtos);
+                
+                System.out.println(pedido.getProdutos().size());
                 
                 
             }
