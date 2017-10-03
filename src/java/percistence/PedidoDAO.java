@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Pedido;
+import model.PedidoAberto;
 import model.PedidoRecebido;
 import model.Produto;
 import model.Usuario;
@@ -67,12 +68,12 @@ public class PedidoDAO {
         PreparedStatement  stmt = null;
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            
-            stmt = conn.prepareStatement("UPDATE pedido (idUsuario,status) values (?, ?) WHERE idPedido=?",Statement.RETURN_GENERATED_KEYS);
+            stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=? WHERE idPedido=?");
             stmt.setString(1, Integer.toString(pedido.getUsuario().getId()));
-            stmt.setString(1, Integer.toString(pedido.getStatus().getStatusID()));
-            stmt.setString(1, Integer.toString(pedido.getId()));
-
+            stmt.setString(2, Integer.toString(pedido.getStatus().getStatusID()));
+            stmt.setString(3, Integer.toString(pedido.getId()));
+            stmt.executeUpdate();
+            
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();
 
             stmt = conn.prepareStatement("DELETE FROM produtosPedido WHERE idPedido=?");
@@ -113,7 +114,7 @@ public class PedidoDAO {
             while(rs.next()){
                 
                 //Aqui tem que criar o pedido com o status correto.
-                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoRecebido(), usuario, null);
+                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoAberto(), usuario, null);
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 

@@ -26,6 +26,9 @@ public class FrontController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        
+        System.out.println(action);
+        
         Action actionObject = null;
         
         actionObject = (action == null  || action.equals("")) ? null : ActionFactory.create(action);

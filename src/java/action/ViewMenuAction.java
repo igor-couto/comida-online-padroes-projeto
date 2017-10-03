@@ -15,6 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Pedido;
 import model.Produto;
 import model.Usuario;
 import percistence.PedidoDAO;
@@ -49,13 +50,15 @@ public class ViewMenuAction implements Action{
         List<Produto> carrinho;
         
         try {
-            
-            carrinho = ProdutoDAO.getInstance().getProdutosPedido(PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1)));
-            int i=0;
-            for(Produto produto:carrinho){
-        
-                cart+="<li><form action='FrontController?action=RemoveItem&id="+i+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></form></li>";
-                i++;
+            Pedido pedido=PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1));
+            if(pedido!=null){
+                carrinho = ProdutoDAO.getInstance().getProdutosPedido(pedido);
+                int i=0;
+                for(Produto produto:carrinho){
+
+                    cart+="<li><form action='FrontController?action=RemoveItem&id="+i+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></form></li>";
+                    i++;
+                }
             }
             
         } catch (SQLException ex) {

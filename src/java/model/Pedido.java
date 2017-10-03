@@ -25,7 +25,7 @@ public class Pedido {
         this.produtos = produtos;
         date=new Date();
         ultimaAlteracao=new Date();
-        status=new PedidoRecebido();
+        status=new PedidoAberto();
     }
 
     public int getId() {

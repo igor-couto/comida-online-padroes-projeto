@@ -19,15 +19,14 @@ public class FechaPedidoAction implements Action{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
-
             if(usuario!=null){
-            
+                
                 Pedido pedido= PedidoDAO.getInstance().getOpenPedido(usuario);
-                System.out.println(pedido.getStatus().getStatusID());
                 
                 if(pedido!=null){
-                    System.out.println("Entrou: "+pedido.getStatus().getStatusID());
+                    
                     pedido.setStatus(new PedidoRecebido());
+                    
                     PedidoDAO.getInstance().Edit(pedido);
                 }
                 
