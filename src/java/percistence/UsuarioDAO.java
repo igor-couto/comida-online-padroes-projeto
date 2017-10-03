@@ -29,8 +29,9 @@ public class UsuarioDAO {
         
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("SELECT idUsuario,nome, email, senha FROM usuario WHERE email = ?");
+            stmt = conn.prepareStatement("SELECT idUsuario,nome, email, senha FROM usuario WHERE email = ? AND senha = ?");
             stmt.setString(1, email);
+            stmt.setString(1, senha);
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
