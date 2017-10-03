@@ -22,6 +22,7 @@ public class NovoUsuarioAction implements Action{
         String senha = request.getParameter("senha");
         String recebeNotificacao = request.getParameter("recebeNotificacao");
         
+        
         if (email.equals("") || senha.equals("") || nome.equals("")) {
             RequestDispatcher despachar = request.getRequestDispatcher("cadastro_falha.jsp");
             request.setAttribute("erro", "Preencha todos os campos acima");
