@@ -18,6 +18,14 @@
               </ul>
           
         </div>       
+        <div class="">
+          <h2>Carrinho</h2>
+          
+              <ul>
+                  ${cart}
+              </ul>
+          
+        </div>
         
     </body>
 </html>

@@ -7,6 +7,7 @@ package action;
 
 import controller.Action;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +16,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Produto;
+import model.Usuario;
+import percistence.PedidoDAO;
 import percistence.ProdutoDAO;
+import percistence.UsuarioDAO;
 
 /**
  *
@@ -29,9 +33,22 @@ public class ViewMenuAction implements Action{
         RequestDispatcher despachar = request.getRequestDispatcher("cardapio.jsp");
         String list="";
         for(Produto produto:produtos){
-            list+="<form action='FrontController?action=AddItem&id="+produto.getId()+"' method='post'><li>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='+'/></li>";
+            list+="<li><form action='FrontController?action=AddItem&id="+produto.getId()+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='+'/></form></li>";
         }
         request.setAttribute("list", list);
+        String cart="";
+        List<Produto> carrinho;
+        try {
+            
+            carrinho = ProdutoDAO.getInstance().getProdutosPedido(PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1)));
+            for(Produto produto:carrinho){
+                cart+="<form action='FrontController?action=RemoveItem&id="+produto.getId()+"' method='post'><li>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></li>";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewMenuAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("cart", cart);
         try {
             despachar.forward(request, response);
         } catch (ServletException ex) {

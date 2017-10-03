@@ -3,6 +3,8 @@ package action;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +29,28 @@ public class AddItemAction implements Action{
             Produto produto = null;
             
             try {
+                
+                //Pegar id do usuario
+                Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+                
                 produto = ProdutoDAO.getInstance().getProduto(Integer.parseInt(id));
-                Pedido pedido = PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1));
-                pedido.addProduto(produto);
+                
+                Pedido pedido = PedidoDAO.getInstance().getOpenPedido(usuario);
+                
+                if(pedido!=null){
+                    
+                    pedido.addProduto(produto);
+                    PedidoDAO.getInstance().Edit(pedido);
+                    
+                }else{
+                    
+                    List<Produto> produtos = new ArrayList<Produto>();
+                    produtos.add(produto);
+                    pedido = new Pedido(usuario, produtos);
+                    PedidoDAO.getInstance().Save(pedido);
+                    
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
             }
