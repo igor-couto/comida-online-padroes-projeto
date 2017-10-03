@@ -20,7 +20,6 @@ public class UsuarioDAO {
         return instance;
     }
     
-    // TODO: Implementar Login
     public Usuario Login(String email, String senha) throws SQLException{
         Usuario usuario=null;
         
@@ -56,10 +55,11 @@ public class UsuarioDAO {
         try {
             conn = DatabaseLocator.getInstance().getConnection();
 
-            stmt = conn.prepareStatement("INSERT INTO usuario (nome, email, senha) values (?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+            stmt = conn.prepareStatement("INSERT INTO usuario (nome, email, senha, notificacao) values (?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());   
             stmt.setString(3, usuario.getSenha()); 
+            stmt.setInt(4, (usuario.isRecebeNotificacao()) ? 1 : 0); 
             int id = stmt.executeUpdate();
             usuario.setId(id);
             

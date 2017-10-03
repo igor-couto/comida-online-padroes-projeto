@@ -16,6 +16,7 @@
               <input type="text" name ="nome" title="nome" placeholder="nome" />
               <input type="text" name ="email" title="email" placeholder="email" />
               <input type="password" name ="senha" title="senha" placeholder="senha" />
+              Deseja receber notificações de promoções?<input type="checkbox" name="recebeNotificacao" value="true">
               <button type="submit" class="btn">Criar</button>
               <a class="forgot" href="index.jsp">Voltar</a>
           </form>

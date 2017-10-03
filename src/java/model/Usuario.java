@@ -5,17 +5,21 @@ public class Usuario {
     protected String nome;
     protected String email;
     protected String senha;
+    protected boolean recebeNotificacao;
 
+    public boolean isRecebeNotificacao() {
+        return recebeNotificacao;
+    }
 
-    public Usuario(String nome, String email) {
-        this.nome = nome;
-        this.email = email;
+    public void setRecebeNotificacao(boolean recebeNotificacao) {
+        this.recebeNotificacao = recebeNotificacao;
     }
     
-    public Usuario(String nome, String email, String senha) {
+    public Usuario(String nome, String email, String senha, boolean recebeNotificacao) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.recebeNotificacao = recebeNotificacao;
     }
 
     public Usuario(int id, String nome, String email) {
