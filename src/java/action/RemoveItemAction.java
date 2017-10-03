@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package action;
 
 import controller.Action;
@@ -16,11 +21,14 @@ import percistence.PedidoDAO;
 import percistence.ProdutoDAO;
 import percistence.UsuarioDAO;
 
-public class AddItemAction implements Action{
+/**
+ *
+ * @author 11944413600
+ */
+public class RemoveItemAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
         String id = request.getParameter("id");        
         
         if (id.equals("")) {
@@ -35,21 +43,12 @@ public class AddItemAction implements Action{
                 //Pegar id do usuario
                 Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
                 
-                produto = ProdutoDAO.getInstance().getProduto(Integer.parseInt(id));
-                
                 Pedido pedido = PedidoDAO.getInstance().getOpenPedido(usuario);
                 
                 if(pedido!=null){
                     
-                    pedido.addProduto(produto);
+                    pedido.removeProduto(Integer.parseInt(id));
                     PedidoDAO.getInstance().Edit(pedido);
-                    
-                }else{
-                    
-                    List<Produto> produtos = new ArrayList<Produto>();
-                    produtos.add(produto);
-                    pedido = new Pedido(usuario, produtos);
-                    PedidoDAO.getInstance().Save(pedido);
                     
                 }
                 
@@ -58,7 +57,8 @@ public class AddItemAction implements Action{
             }
             
 
-                response.sendRedirect("itemAdicionado.jsp");
+            response.sendRedirect("itemRemovido.jsp");
+            
         }
     }
     

@@ -72,6 +72,10 @@ public class Pedido {
     public void addProduto(Produto p){
         produtos.add(p);
     }
+
+    public void removeProduto(int i) {
+        produtos.remove(i);
+    }
     
     
 }

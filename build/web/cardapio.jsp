@@ -24,7 +24,9 @@
               <ul>
                   ${cart}
               </ul>
-          
+              <form action="FrontController?action=FechaPedido">
+                  <input type="submit" value="Fechar pedido"/>
+              </form>
         </div>
         
     </body>

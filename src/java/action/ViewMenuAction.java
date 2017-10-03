@@ -29,20 +29,33 @@ public class ViewMenuAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
         List<Produto> produtos = ProdutoDAO.getInstance().getProdutos();
+        
         RequestDispatcher despachar = request.getRequestDispatcher("cardapio.jsp");
+        
         String list="";
+        
         for(Produto produto:produtos){
+        
             list+="<li><form action='FrontController?action=AddItem&id="+produto.getId()+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='+'/></form></li>";
+        
         }
+        
         request.setAttribute("list", list);
+        
         String cart="";
+        
         List<Produto> carrinho;
+        
         try {
             
             carrinho = ProdutoDAO.getInstance().getProdutosPedido(PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1)));
+            int i=0;
             for(Produto produto:carrinho){
-                cart+="<form action='FrontController?action=RemoveItem&id="+produto.getId()+"' method='post'><li>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></li>";
+        
+                cart+="<li><form action='FrontController?action=RemoveItem&id="+i+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></form></li>";
+                i++;
             }
             
         } catch (SQLException ex) {
