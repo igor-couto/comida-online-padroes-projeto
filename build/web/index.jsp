@@ -16,7 +16,7 @@
                 <input type="text" name ="email" title="email" placeholder="email" />
                 <input type="password" name ="senha" title="senha" placeholder="senha" />
                 <button type="submit" class="btn">Entrar</button>
-                <a class="forgot" href="#">Criar uma conta</a>
+                <a class="forgot" href="novo_usuario.jsp">Criar uma conta</a>
           </form>
         </div>       
         
