@@ -104,3 +104,58 @@ body {
 .log-form .forgot:hover {
   color: #1ba0a9;
 }
+
+.container {
+    width: 70vw;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5vw;
+    
+    padding: 1%;
+    
+    height: 400px;
+    background: #fff;
+}
+
+.container .pedido {
+    margin: auto;
+    background: #f2f2f2;
+    padding: 1%;
+    width: 80%;
+}
+
+.container .pedido h2 {
+  color: #5d5d5d;
+  font-family: 'open sans condensed';
+  font-size: 1.35em;
+  display: block;
+  background: #2a2a2a;
+  width: 100%;
+  text-transform: uppercase;
+  padding: .75em 1em .75em 1.5em;
+  box-shadow: inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid #1d1d1d;
+  margin: 0;
+  font-weight: 200;
+}
+
+.container .pedido .btn {
+  display: inline-block;
+  background: #bec61f;
+  border: 1px solid #aeb524;
+  padding: .5em 2em;
+  color: white;
+  margin-right: .5em;
+   margin-left: 5%;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+.container .pedido .btn:hover {
+  background: #aeb524;
+}
+.container .pedido .btn:active {
+  background: #bec61f;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.container .pedido .btn:focus {
+  outline: none;
+}
