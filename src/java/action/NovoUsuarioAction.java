@@ -9,7 +9,16 @@ public class NovoUsuarioAction implements Action{
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");        
+        String senha = request.getParameter("senha");
+        
+        if (email.equals("") || senha.equals("") || nome.equals("")) {
+            response.sendRedirect("cadastro_falha.jsp");
+        } else {
+            
+        }
     }
     
 }
