@@ -17,9 +17,8 @@
                 <input type="password" title="senha" placeholder="senha" name="senha"/>
                 <button type="submit" class="btn">Entrar</button>
                 <a class="forgot" href="novo_usuario">Criar uma conta</a>
-                <p class="bg-danger" style="margin-top: 10%;"> Conta criada com sucesso! Por favor efetue login.</p>
+                <p class="bg-success" style="margin-top: 10%;"> Conta criada com sucesso! Por favor efetue login.</p>
           </form>
         </div>       
-        
     </body>
 </html>
