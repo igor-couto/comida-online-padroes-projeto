@@ -68,6 +68,7 @@ public class PedidoDAO {
         PreparedStatement  stmt = null;
         try {
             conn = DatabaseLocator.getInstance().getConnection();
+            System.out.println(pedido.getStatus().getStatusID());
             stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=? WHERE idPedido=?");
             stmt.setString(1, Integer.toString(pedido.getUsuario().getId()));
             stmt.setString(2, Integer.toString(pedido.getStatus().getStatusID()));
@@ -114,7 +115,7 @@ public class PedidoDAO {
             while(rs.next()){
                 
                 //Aqui tem que criar o pedido com o status correto.
-                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoAberto(), usuario, null);
+                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoAberto(), usuario, new ArrayList<>());
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
@@ -154,7 +155,7 @@ public class PedidoDAO {
                 Usuario usuarioPedido=UsuarioDAO.getInstance().getUsuario(Integer.parseInt(rs.getString("idUsuario")));
                 
                 //Aqui tem que criar o pedido com o status correto.
-                Pedido pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, null);
+                Pedido pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, new ArrayList<>());
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
@@ -187,6 +188,43 @@ public class PedidoDAO {
         } catch(SQLException e) {
 
         }
+    }
+
+    public Pedido getPedido(String id) throws SQLException {
+        Connection conn = null;
+        PreparedStatement  stmt = null;
+        Pedido pedido = null ;
+        try {
+            
+            conn = DatabaseLocator.getInstance().getConnection();
+
+            stmt = conn.prepareStatement("SELECT * FROM pedido WHERE idPedido=?");
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                
+                Usuario usuarioPedido=UsuarioDAO.getInstance().getUsuario(Integer.parseInt(rs.getString("idUsuario")));
+                
+                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, new ArrayList<>());
+                System.out.println(Pedido.getClassStatus(rs.getInt("status")));
+                List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
+                
+                pedido.setProdutos(produtos);
+                
+            }
+            
+        } catch(SQLException e) {
+            
+            throw e;
+            
+        } finally {
+            
+            closeResources(conn, stmt);
+            
+        }
+        
+        return pedido;
     }
     
 }

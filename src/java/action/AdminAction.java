@@ -46,14 +46,21 @@ public class AdminAction implements Action{
                 
                 }
                 
-                list+="<li>Pedido número "+pedido.getId()+" - "+pedido.getDateString()+"<div>Cliente: "+pedido.getUsuario().getNome()+"</div><ul>"+listProdutos+"</ul><label>Total: "+pedido.getTotal()+" - "+pedido.getFormaPagamento()+"</label></li>";
+                String nextState=Pedido.getClassStatus(pedido.getStatus().getStatusID()+1).getStatus();
+                
+                list+="<li>Pedido número "+pedido.getId()+" - "+pedido.getDateString()+" ("+pedido.getStatus().getStatus()
+                        +")<div>Cliente: "+pedido.getUsuario().getNome()+"</div>"
+                        +"<ul>"+listProdutos+"</ul><label>Total: "+pedido.getTotal()+" - "+pedido.getFormaPagamento()+"</label>"
+                        + "<form action='FrontController?action=AlteraStatus&id="+pedido.getId()+"' method='post'><input type='submit' value='Alterar para "+nextState+"'/></form>"
+                        + "<form action='FrontController?action=CancelaPedido&id="+pedido.getId()+"' method='post'><input type='submit' value='Cancelar pedido'/></form>"
+                        + "</li>";
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(AdminAction.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("list", list);
+        request.setAttribute("list", "<ul>"+list+"</ul>");
         
         try {
         
