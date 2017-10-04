@@ -15,8 +15,7 @@
                 <h2>${usuario}</h2>
                 <form action="FrontController?action=NovoUsuario" method="post"> <!-- Para qual action isso vai? -->
                     <br>
-                    ${itens}
-                    Forma de Pagamento: <br>
+                    ${list}
                     <br>
                     Status:
                     <select name='status'>

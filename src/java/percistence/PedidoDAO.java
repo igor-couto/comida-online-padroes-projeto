@@ -138,6 +138,47 @@ public class PedidoDAO {
         return pedido;
     }
     
+    public List<Pedido> getPedidosRecebidos() throws SQLException{
+        Connection conn = null;
+        PreparedStatement  stmt = null;
+        List<Pedido> pedidos = new ArrayList<>();
+        try {
+            
+            conn = DatabaseLocator.getInstance().getConnection();
+
+            stmt = conn.prepareStatement("SELECT * FROM pedido WHERE status>=2");
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                
+                Usuario usuarioPedido=UsuarioDAO.getInstance().getUsuario(Integer.parseInt(rs.getString("idUsuario")));
+                
+                //Aqui tem que criar o pedido com o status correto.
+                Pedido pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, null);
+                
+                List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
+                
+                pedido.setProdutos(produtos);
+                
+                pedidos.add(pedido);
+                
+            }
+            
+        } catch(SQLException e) {
+            
+            throw e;
+            
+        } finally {
+            
+            closeResources(conn, stmt);
+            
+        }
+        
+        return pedidos;
+    }
+    
+    
+    
     public void closeResources(Connection conn, Statement st){
         try {
             if(st!=null) st.close();

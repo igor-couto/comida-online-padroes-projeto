@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class Pedido {
     protected PedidoStatus status;//1 - Aberto, 2 - Recebido, 3 - Em preparacao,4 - Saiu pra entrega, 0 - Cancelado
     protected Usuario usuario;
     protected List<Produto> produtos;
+    public static SimpleDateFormat dataFormato = new SimpleDateFormat("dd/MM/yy");
+    protected FormaPagamento formaPagamento;
 
     public Pedido(int id, Date date, Date ultimaAlteracao, PedidoStatus status, Usuario usuario, List<Produto> produtos) {
         this.id = id;
@@ -18,6 +21,8 @@ public class Pedido {
         this.status = status;
         this.usuario = usuario;
         this.produtos = produtos;
+        this.formaPagamento=new PagamentoDinheiro();
+        
     }
 
     public Pedido(Usuario usuario, List<Produto> produtos) {
@@ -26,10 +31,19 @@ public class Pedido {
         date=new Date();
         ultimaAlteracao=new Date();
         status=new PedidoAberto();
+        this.formaPagamento=new PagamentoDinheiro();
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getFormaPagamento() {
+        return formaPagamento.getNome();
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     public void setId(int id) {
@@ -38,6 +52,10 @@ public class Pedido {
 
     public Date getDate() {
         return date;
+    }
+    
+    public String getDateString(){
+        return Pedido.dataFormato.format(date);
     }
 
     public void setDate(Date date) {
@@ -77,5 +95,35 @@ public class Pedido {
         produtos.remove(i);
     }
     
+    public float getTotal(){
+        float total=0f;
+        for (Produto p:produtos){
+            total+=p.getPreco();
+        }
+        return total;
+    }
+    
+    public static PedidoStatus getClassStatus(int i){
+        PedidoStatus status;
+        switch (i) {
+            case 1:
+                status = new PedidoAberto();
+                break;
+            case 2:
+                status = new PedidoRecebido();
+                break;
+            case 3:
+                status = new PedidoEmPreparacao();
+                break;
+            case 4:
+                status = new PedidoSaiuEntrega();
+                break;
+            default:
+                status = new PedidoCancelado();
+                break;
+        }
+        
+        return status;
+    }
     
 }
