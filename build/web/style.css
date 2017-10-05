@@ -165,3 +165,14 @@ ul{
 .pedidosAdmin > ul >  li{
     padding:30px;
 }
+
+.carrinho {
+    margin-left: 5px;
+    margin-top: 5px;
+    padding: 4px;
+    width: 17%;
+    height: auto;
+    background: #f2f2f2; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

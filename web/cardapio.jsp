@@ -18,7 +18,7 @@
               </ul>
           
         </div>       
-        <div class="">
+        <div class="carrinho">
           <h2>Carrinho</h2>
           
               <ul>
@@ -28,6 +28,7 @@
               <form action="FrontController?action=FechaPedido" method="post">
                   
                   Forma de Pagamento:
+                  <br>
                   <input type="radio" id="pagamentoDinheiro"
                     name="formaPagamento" value="dinheiro" checked>
                   <label for="contactChoice1">Dinheiro</label>
