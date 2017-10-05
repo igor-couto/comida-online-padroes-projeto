@@ -41,7 +41,6 @@ public class NovaPromocaoAction implements Action{
             novaPromocao.setDesconto(Integer.parseInt(desconto));
             
             for(Usuario usuario:usuarios){
-                System.out.println(usuario.getNome());
                 list+="<li>"+usuario.getNome()+"</li>";
             }
             

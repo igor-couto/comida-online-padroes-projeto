@@ -56,7 +56,7 @@ public class UsuarioDAO {
         try {
             conn = DatabaseLocator.getInstance().getConnection();
 
-            stmt = conn.prepareStatement("INSERT INTO usuario (nome, email, senha, notificacao) values (?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+            stmt = conn.prepareStatement("INSERT INTO usuario (nome, email, senha, notificacao,desconto) values (?, ?, ?, ?,0)",Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getEmail());   
             stmt.setString(3, usuario.getSenha()); 
@@ -85,7 +85,7 @@ public class UsuarioDAO {
         
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            System.out.println(desconto);
+            System.out.println("Desconto:"+desconto);
 
             stmt = conn.prepareStatement("UPDATE usuario SET nome=?,email=?,notificacao=?,desconto=? WHERE idUsuario=?");
             stmt.setString(1, nome);
@@ -153,7 +153,7 @@ public class UsuarioDAO {
             
             while(rs.next()){
 
-                usuarios.add(new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"), (rs.getInt("notificacao")>0),rs.getInt("desconto")));
+                usuarios.add(new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"), (rs.getInt("notificacao")>0),rs.getInt("desconto"),promocao));
                 
             }
             

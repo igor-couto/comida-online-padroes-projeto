@@ -76,11 +76,12 @@ public class PedidoDAO {
         try {
             conn = DatabaseLocator.getInstance().getConnection();
 
-            stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=?,ultimaAlteracao=? WHERE idPedido=?");
+            stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=?,ultimaAlteracao=?,tipoPagamento=? WHERE idPedido=?");
             stmt.setString(1, Integer.toString(pedido.getUsuario().getId()));
             stmt.setString(2, Integer.toString(pedido.getStatus().getStatusID()));
             stmt.setDate(3, new java.sql.Date(pedido.getUltimaAlteracao().getTime()));
-            stmt.setString(4, Integer.toString(pedido.getId()));
+            stmt.setInt(4, pedido.getFormaPagamento().getFormaPagamento());
+            stmt.setString(5, Integer.toString(pedido.getId()));
             stmt.executeUpdate();
             
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();
@@ -127,10 +128,7 @@ public class PedidoDAO {
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
-                pedido.setProdutos(produtos);
-                
-                System.out.println(pedido.getProdutos().size());
-                
+                pedido.setProdutos(produtos);                
                 
             }
             
