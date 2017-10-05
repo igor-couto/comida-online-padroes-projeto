@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
@@ -29,11 +30,23 @@ public class AddItemAction implements Action{
             
         } else {
             
+            Cookie[] cookies = request.getCookies();
+
+            int idUsuario=0;
+
+            for(Cookie cookie:cookies){
+
+                if(cookie.getName().equals("usuario")){
+                    idUsuario=Integer.parseInt(cookie.getValue());
+                }
+
+            }
+            
             Produto produto = null;            
             try {
                 
                 //Pegar id do usuario
-                Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+                Usuario usuario = UsuarioDAO.getInstance().getUsuario(idUsuario);
                 
                 produto = ProdutoDAO.getInstance().getProduto(Integer.parseInt(id));
                 

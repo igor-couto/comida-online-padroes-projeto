@@ -29,7 +29,7 @@ public class UsuarioDAO {
         
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            stmt = conn.prepareStatement("SELECT idUsuario,nome, email, senha FROM usuario WHERE email = ? AND senha = ?");
+            stmt = conn.prepareStatement("SELECT idUsuario,nome, email, senha,notificacao,desconto FROM usuario WHERE email = ? AND senha = ?");
             stmt.setString(1, email);
             stmt.setString(2, senha);
             ResultSet rs = stmt.executeQuery();

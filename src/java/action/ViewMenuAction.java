@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Pedido;
@@ -35,6 +36,18 @@ public class ViewMenuAction implements Action{
         
         RequestDispatcher despachar = request.getRequestDispatcher("cardapio.jsp");
         
+        Cookie[] cookies = request.getCookies();
+        
+        int idUsuario=0;
+        
+        for(Cookie cookie:cookies){
+            
+            if(cookie.getName().equals("usuario")){
+                idUsuario=Integer.parseInt(cookie.getValue());
+            }
+            
+        }
+        
         String list="";
         
         for(Produto produto:produtos){
@@ -50,7 +63,8 @@ public class ViewMenuAction implements Action{
         List<Produto> carrinho;
         
         try {
-            Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+            Usuario usuario = UsuarioDAO.getInstance().getUsuario(idUsuario);
+            
             if(usuario!=null){
                 
                 Pedido pedido = PedidoDAO.getInstance().getOpenPedido(usuario);

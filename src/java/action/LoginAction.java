@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Usuario;
@@ -24,6 +25,8 @@ public class LoginAction implements Action{
             
             try {
                 usuario = UsuarioDAO.getInstance().Login(email,senha);
+                Cookie cookie = new Cookie("usuario",Integer.toString(usuario.getId()));
+                response.addCookie(cookie);
             } catch (SQLException ex) {
                 Logger.getLogger(LoginAction.class.getName()).log(Level.SEVERE, null, ex);
             }

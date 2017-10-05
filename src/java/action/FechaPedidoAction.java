@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.PagamentoCartao;
@@ -20,8 +21,19 @@ public class FechaPedidoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
+            Cookie[] cookies = request.getCookies();
+        
+            int idUsuario=0;
+
+            for(Cookie cookie:cookies){
+
+                if(cookie.getName().equals("usuario")){
+                    idUsuario=Integer.parseInt(cookie.getValue());
+                }
+
+            }
             
-            Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+            Usuario usuario = UsuarioDAO.getInstance().getUsuario(idUsuario);
             
             if(usuario!=null){
                 
