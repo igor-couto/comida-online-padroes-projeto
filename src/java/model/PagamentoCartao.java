@@ -15,5 +15,15 @@ public class PagamentoCartao implements FormaPagamento{
     public String getNome() {
         return "Cartão de crédito";
     }
+
+    @Override
+    public int getFormaPagamento() {
+        return 2;
+    }
+
+    @Override
+    public float precoFinal(float total) {
+        return total;
+    }
     
 }

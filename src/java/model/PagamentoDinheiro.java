@@ -15,5 +15,15 @@ public class PagamentoDinheiro implements FormaPagamento{
     public String getNome() {
         return "Pagamento em dinheiro";
     }
+
+    @Override
+    public int getFormaPagamento() {
+        return 1;
+    }
+
+    @Override
+    public float precoFinal(float total) {
+        return total*0.95f;
+    }
     
 }

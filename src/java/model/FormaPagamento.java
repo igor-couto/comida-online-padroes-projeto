@@ -11,4 +11,6 @@ package model;
  */
 public interface FormaPagamento {
     public String getNome();
+    public int getFormaPagamento();
+    public float precoFinal(float total);
 }

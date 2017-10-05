@@ -29,14 +29,15 @@ public class PedidoDAO {
         
         Connection conn = null;
         PreparedStatement  stmt = null;
-        System.out.println("Entrou 2");
         try {
             conn = DatabaseLocator.getInstance().getConnection();
             java.util.Date data = new java.util.Date();
             java.sql.Date dataSql = new java.sql.Date(data.getTime());
-            stmt = conn.prepareStatement("INSERT INTO pedido (idUsuario,status,data) values (?, 1, ?)",Statement.RETURN_GENERATED_KEYS);
+            stmt = conn.prepareStatement("INSERT INTO pedido (idUsuario,status,data,ultimaAlteracao,tipoPagamento) values (?,1,?,?,?)",Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, Integer.toString(pedido.getUsuario().getId()));
             stmt.setDate(2, dataSql);
+            stmt.setDate(3, dataSql);
+            stmt.setInt(4, pedido.getFormaPagamento().getFormaPagamento());
             int idPedido = stmt.executeUpdate();
             pedido.setId(idPedido);
             
@@ -68,11 +69,12 @@ public class PedidoDAO {
         PreparedStatement  stmt = null;
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            System.out.println(pedido.getStatus().getStatusID());
-            stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=? WHERE idPedido=?");
+
+            stmt = conn.prepareStatement("UPDATE pedido SET idUsuario=?,status=?,ultimaAlteracao=? WHERE idPedido=?");
             stmt.setString(1, Integer.toString(pedido.getUsuario().getId()));
             stmt.setString(2, Integer.toString(pedido.getStatus().getStatusID()));
-            stmt.setString(3, Integer.toString(pedido.getId()));
+            stmt.setDate(3, new java.sql.Date(pedido.getUltimaAlteracao().getTime()));
+            stmt.setString(4, Integer.toString(pedido.getId()));
             stmt.executeUpdate();
             
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();

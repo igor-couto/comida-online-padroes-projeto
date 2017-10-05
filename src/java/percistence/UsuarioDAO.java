@@ -71,18 +71,19 @@ public class UsuarioDAO {
 
     }
     
-    public void Edit(String id,String nome,String email) throws SQLException{
+    public void Edit(String id,String nome,String email,boolean notificacao) throws SQLException{
         
         Connection conn = null;
         PreparedStatement  stmt = null;
         
         try {
             conn = DatabaseLocator.getInstance().getConnection();
-            System.out.println("iD: "+id);
-            stmt = conn.prepareStatement("UPDATE usuario SET nome=?,email=? WHERE idUsuario=?");
+
+            stmt = conn.prepareStatement("UPDATE usuario SET nome=?,email=?,notificacao=? WHERE idUsuario=?");
             stmt.setString(1, nome);
             stmt.setString(2, email);
-            stmt.setString(3, id);
+            stmt.setInt(3, (notificacao) ? 1 : 0); 
+            stmt.setString(4, id);
             stmt.executeUpdate();
             
         } catch(SQLException e) {

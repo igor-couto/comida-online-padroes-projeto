@@ -6,6 +6,8 @@ public interface PedidoStatus {
     
     public int getStatusID();
     
+    public int getNextID();
+    
     public String Aberto(Pedido p);
     
     public String Recebido(Pedido p);

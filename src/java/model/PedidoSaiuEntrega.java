@@ -36,5 +36,10 @@ public class PedidoSaiuEntrega implements PedidoStatus{
     public String Cancelado(Pedido p) {
         return "Não foi possível realizar esta operação";
     }
+
+    @Override
+    public int getNextID() {
+        return -1;
+    }
     
 }

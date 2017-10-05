@@ -38,8 +38,8 @@ public class Pedido {
         return id;
     }
 
-    public String getFormaPagamento() {
-        return formaPagamento.getNome();
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
     }
 
     public void setFormaPagamento(FormaPagamento formaPagamento) {
@@ -57,6 +57,16 @@ public class Pedido {
     public String getDateString(){
         return Pedido.dataFormato.format(date);
     }
+
+    public Date getUltimaAlteracao() {
+        return ultimaAlteracao;
+    }
+
+    public void setUltimaAlteracao(Date ultimaAlteracao) {
+        this.ultimaAlteracao = ultimaAlteracao;
+    }
+    
+    
 
     public void setDate(Date date) {
         this.date = date;
@@ -101,6 +111,11 @@ public class Pedido {
             total+=p.getPreco();
         }
         return total;
+    }
+    
+    public float getTotalFinal(){
+        float total=this.getTotal();        
+        return formaPagamento.precoFinal(total);
     }
     
     public static PedidoStatus getClassStatus(int i){

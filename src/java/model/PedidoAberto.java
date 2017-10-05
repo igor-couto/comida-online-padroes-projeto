@@ -49,5 +49,10 @@ public class PedidoAberto  implements PedidoStatus{
         p.setStatus(new PedidoCancelado());
         return "Seu pedido foi cancelado";
     }
+
+    @Override
+    public int getNextID() {
+        return 2;
+    }
     
 }

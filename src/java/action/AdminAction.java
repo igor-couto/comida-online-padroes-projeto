@@ -46,12 +46,14 @@ public class AdminAction implements Action{
                 
                 }
                 
-                String nextState=Pedido.getClassStatus(pedido.getStatus().getStatusID()+1).getStatus();
+                int nextStateID=pedido.getStatus().getNextID();
+                String nextState = nextStateID>=0 ? ("<form action='FrontController?action=AlteraStatus&id="+pedido.getId()+"' method='post'><input type='submit' value='Alterar para "+Pedido.getClassStatus(nextStateID).getStatus()+"'/></form>") : "" ;
                 
                 list+="<li>Pedido número "+pedido.getId()+" - "+pedido.getDateString()+" ("+pedido.getStatus().getStatus()
                         +")<div>Cliente: "+pedido.getUsuario().getNome()+"</div>"
-                        +"<ul>"+listProdutos+"</ul><label>Total: "+pedido.getTotal()+" - "+pedido.getFormaPagamento()+"</label>"
-                        + "<form action='FrontController?action=AlteraStatus&id="+pedido.getId()+"' method='post'><input type='submit' value='Alterar para "+nextState+"'/></form>"
+                        +"<ul>"+listProdutos+"</ul><label>Total: "+pedido.getTotal()+" - "+pedido.getFormaPagamento().getNome()+"</label>"
+                        +"<div>Preço com desconto:"+pedido.getTotalFinal()+"</div>"
+                        + nextState
                         + "<form action='FrontController?action=CancelaPedido&id="+pedido.getId()+"' method='post'><input type='submit' value='Cancelar pedido'/></form>"
                         + "</li>";
             }

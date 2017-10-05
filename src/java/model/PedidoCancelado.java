@@ -37,6 +37,11 @@ public class PedidoCancelado implements PedidoStatus{
         return "Este pedido já foi cancelado.";
     }
 
+    @Override
+    public int getNextID() {
+        return 0;
+    }
+
     
     
 }
