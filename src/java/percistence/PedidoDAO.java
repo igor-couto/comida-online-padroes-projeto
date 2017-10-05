@@ -38,10 +38,16 @@ public class PedidoDAO {
             stmt.setDate(2, dataSql);
             stmt.setDate(3, dataSql);
             stmt.setInt(4, pedido.getFormaPagamento().getFormaPagamento());
-            int idPedido = stmt.executeUpdate();
+            stmt.executeUpdate();
+            
+            ResultSet genKeys = stmt.getGeneratedKeys();
+            genKeys.next();
+            
+            int idPedido = genKeys.getInt(1);            
             pedido.setId(idPedido);
             
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();
+            System.out.println(produtos.size());
             if(produtos.size()>0){
                 for (Produto temp : produtos) {
                     stmt = conn.prepareStatement("INSERT INTO produtosPedido (idPedido,idProduto,quantidade) values (?, ?, 1)");

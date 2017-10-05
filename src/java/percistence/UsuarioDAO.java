@@ -61,6 +61,12 @@ public class UsuarioDAO {
             stmt.setString(3, usuario.getSenha()); 
             stmt.setInt(4, (usuario.isRecebeNotificacao()) ? 1 : 0); 
             int id = stmt.executeUpdate();
+            
+            
+            ResultSet genKeys = stmt.getGeneratedKeys();
+            genKeys.next();
+            
+            int idUsuario = genKeys.getInt(1);            
             usuario.setId(id);
             
         } catch(SQLException e) {    
