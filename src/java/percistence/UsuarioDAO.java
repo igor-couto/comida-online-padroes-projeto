@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.Promocao;
 import model.Usuario;
 
 
@@ -35,7 +36,7 @@ public class UsuarioDAO {
             
             while(rs.next()){
             
-                usuario = new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"));
+                usuario = new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"),(rs.getInt("notificacao")>0),rs.getInt("desconto"));
                 
             }
         } catch(SQLException e) { 
@@ -77,19 +78,21 @@ public class UsuarioDAO {
 
     }
     
-    public void Edit(String id,String nome,String email,boolean notificacao) throws SQLException{
+    public void Edit(String id,String nome,String email,boolean notificacao,int desconto) throws SQLException{
         
         Connection conn = null;
         PreparedStatement  stmt = null;
         
         try {
             conn = DatabaseLocator.getInstance().getConnection();
+            System.out.println(desconto);
 
-            stmt = conn.prepareStatement("UPDATE usuario SET nome=?,email=?,notificacao=? WHERE idUsuario=?");
+            stmt = conn.prepareStatement("UPDATE usuario SET nome=?,email=?,notificacao=?,desconto=? WHERE idUsuario=?");
             stmt.setString(1, nome);
             stmt.setString(2, email);
             stmt.setInt(3, (notificacao) ? 1 : 0); 
-            stmt.setString(4, id);
+            stmt.setInt(4, desconto);
+            stmt.setString(5, id);            
             stmt.executeUpdate();
             
         } catch(SQLException e) {
@@ -118,7 +121,7 @@ public class UsuarioDAO {
             
             while(rs.next()){
             
-                usuario = new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"));
+                usuario = new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"), (rs.getInt("notificacao")>0),rs.getInt("desconto"));
                 
             }
             
@@ -133,6 +136,38 @@ public class UsuarioDAO {
         }
         
         return usuario;
+        
+    }
+    
+    public List<Usuario> getUsuariosNotificacao(Promocao promocao) throws SQLException{
+        Connection conn = null;
+        PreparedStatement  stmt = null;
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            
+            conn = DatabaseLocator.getInstance().getConnection();
+
+            stmt = conn.prepareStatement("SELECT * FROM usuario WHERE notificacao=1");
+
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+
+                usuarios.add(new Usuario(rs.getInt("idUsuario"),rs.getString("nome"),rs.getString("email"), (rs.getInt("notificacao")>0),rs.getInt("desconto")));
+                
+            }
+            
+        } catch(SQLException e) {
+            
+            throw e;
+            
+        } finally {
+            
+            closeResources(conn, stmt);
+            
+        }
+        
+        return usuarios;
         
     }
     

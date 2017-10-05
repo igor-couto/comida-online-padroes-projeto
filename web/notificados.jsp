@@ -11,19 +11,8 @@
     </head>
     <body>
         <div class="container">
-            <div>
-                <form action="FrontController?action=NovaPromocao" method="POST">
-                    <label>Digite o valor da nova promoção</label>
-                    <input type="text" name="desconto"/>
-                    <input type="submit" value="Enviar"/>
-                </form>
-            </div>
-            <div class="pedidosAdmin">
-                <h2>Pedidos abertos</h2>
-                <br>
-                ${list}
-                <br>
-            </div>
-        </div>       
+            <h1>Usuarios notificados!</h1>
+            ${list}
+        </div>
     </body>
 </html>

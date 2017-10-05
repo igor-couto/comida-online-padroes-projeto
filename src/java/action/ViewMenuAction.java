@@ -50,14 +50,30 @@ public class ViewMenuAction implements Action{
         List<Produto> carrinho;
         
         try {
-            Pedido pedido=PedidoDAO.getInstance().getOpenPedido(UsuarioDAO.getInstance().getUsuario(1));
-            if(pedido!=null){
-                carrinho = ProdutoDAO.getInstance().getProdutosPedido(pedido);
-                int i=0;
-                for(Produto produto:carrinho){
+            Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+            if(usuario!=null){
+                
+                Pedido pedido = PedidoDAO.getInstance().getOpenPedido(usuario);
+                
+                String mensagemDesconto = "";
+                
+                if(usuario.getDesconto()>0){
+                    
+                    mensagemDesconto="Parabens você ganhou um desconto de "+usuario.getDesconto()+"%";
+                    
+                }
+                System.out.println(mensagemDesconto);
+                request.setAttribute("mensagemDesconto", mensagemDesconto);
+                
+                if(pedido!=null){
+                
+                    carrinho = ProdutoDAO.getInstance().getProdutosPedido(pedido);
+                    int i=0;
+                    for(Produto produto:carrinho){
 
-                    cart+="<li><form action='FrontController?action=RemoveItem&id="+i+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></form></li>";
-                    i++;
+                        cart+="<li><form action='FrontController?action=RemoveItem&id="+i+"' method='post'>"+produto.getNome()+" - "+produto.getPreco()+"<input type='submit' value='-'/></form></li>";
+                        i++;
+                    }
                 }
             }
             

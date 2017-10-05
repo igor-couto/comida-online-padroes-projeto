@@ -45,7 +45,7 @@ public class AddItemAction implements Action{
                     PedidoDAO.getInstance().Edit(pedido);
                     
                 }else{
-                    System.out.println(produto.getId());
+
                     List<Produto> produtos = new ArrayList<Produto>();
                     produtos.add(produto);
                     pedido = new Pedido(usuario, produtos);

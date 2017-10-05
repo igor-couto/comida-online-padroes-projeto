@@ -47,7 +47,7 @@ public class PedidoDAO {
             pedido.setId(idPedido);
             
             ArrayList<Produto> produtos = (ArrayList<Produto>) pedido.getProdutos();
-            System.out.println(produtos.size());
+            
             if(produtos.size()>0){
                 for (Produto temp : produtos) {
                     stmt = conn.prepareStatement("INSERT INTO produtosPedido (idPedido,idProduto,quantidade) values (?, ?, 1)");

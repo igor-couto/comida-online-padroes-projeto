@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.PagamentoCartao;
+import model.PagamentoDinheiro;
 import model.Pedido;
 import model.PedidoRecebido;
 import model.Usuario;
@@ -18,12 +20,26 @@ public class FechaPedidoAction implements Action{
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
+            
             Usuario usuario = UsuarioDAO.getInstance().getUsuario(1);
+            
             if(usuario!=null){
                 
                 Pedido pedido= PedidoDAO.getInstance().getOpenPedido(usuario);
                 
                 if(pedido!=null){
+                    
+                    String pagamento = request.getParameter("formaPagamento");
+                    
+                    if(pagamento.equals("dinheiro")){
+                        
+                        pedido.setFormaPagamento(new PagamentoDinheiro());
+                        
+                    }else{
+                        
+                        pedido.setFormaPagamento(new PagamentoCartao());
+                        
+                    }
                     
                     pedido.setStatus(new PedidoRecebido());
                     
