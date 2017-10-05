@@ -24,7 +24,19 @@
               <ul>
                   ${cart}
               </ul>
+
               <form action="FrontController?action=FechaPedido" method="post">
+                  
+                  Forma de Pagamento:
+                  <input type="radio" id="pagamentoDinheiro"
+                    name="formaPagamento" value="dinheiro" checked>
+                  <label for="contactChoice1">Dinheiro</label>
+
+                  <input type="radio" id="pagamentoCartao"
+                    name="formaPagamento" value="cartao">
+                  <label for="contactChoice2">Cartão</label>
+                  <br>
+                  
                   <input type="submit" value="Fechar pedido"/>
               </form>
         </div>
