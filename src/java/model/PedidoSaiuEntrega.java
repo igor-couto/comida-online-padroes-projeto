@@ -14,27 +14,27 @@ public class PedidoSaiuEntrega implements PedidoStatus{
 
     @Override
     public String Aberto(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Este pedido já saiu pra entrega. Não é possivel realizar esta ação";
     }
 
     @Override
     public String Recebido(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Este pedido já saiu pra entrega. Não é possivel realizar esta ação";
     }
 
     @Override
     public String EmPreparacao(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Este pedido já saiu pra entrega. Não é possivel realizar esta ação";
     }
 
     @Override
     public String SaiuEntrega(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Este pedido já saiu pra entrega.";
     }
 
     @Override
     public String Cancelado(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Este pedido já saiu pra entrega. Não é possivel realizar esta ação";
     }
 
     @Override

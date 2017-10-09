@@ -46,15 +46,24 @@ public class AdminAction implements Action{
                 
                 }
                 
-                int nextStateID=pedido.getStatus().getNextID();
-                String nextState = nextStateID>=0 ? ("<form action='FrontController?action=AlteraStatus&id="+pedido.getId()+"' method='post'><input type='submit' value='Alterar para "+Pedido.getClassStatus(nextStateID).getStatus()+"'/></form>") : "" ;
+                String nextState = ("<form action='FrontController'>"
+                        + "<select name='action'>"
+                        + "<option value='Aberto'>Aberto</option>"
+                        + "<option value='Recebido'>Recebido</option>"
+                        + "<option value='EmPreparacao'>Em preparação</option>"
+                        + "<option value='SaiuEntrega'>Saiu para entrega</option>"
+                        + "<option value='Cancelado'>Cancelado</option>"
+                        + "</select>"
+                        + "<input type='submit' value='Alterar'/>"
+                        + "<input type='hidden' value='"+pedido.getId()+"' name='id'>"
+                        + "</form>");
                 
                 list+="<li>Pedido número "+pedido.getId()+" - "+pedido.getDateString()+" ("+pedido.getStatus().getStatus()
                         +")<div>Cliente: "+pedido.getUsuario().getNome()+"</div>"
                         +"<ul>"+listProdutos+"</ul><label>Total: "+pedido.getTotal()+" - "+pedido.getFormaPagamento().getNome()+"</label>"
                         +"<div>Preço com desconto:"+pedido.getTotalFinal()+"</div>"
                         + nextState
-                        + "<form action='FrontController?action=CancelaPedido&id="+pedido.getId()+"' method='post'><input type='submit' value='Cancelar pedido'/></form>"
+                        //+ "<form action='FrontController?action=CancelaPedido&id="+pedido.getId()+"' method='post'><input type='submit' value='Cancelar pedido'/></form>"
                         + "</li>";
             }
             

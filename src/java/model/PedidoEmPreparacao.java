@@ -25,7 +25,7 @@ public class PedidoEmPreparacao implements PedidoStatus{
     @Override
     public String EmPreparacao(Pedido p) {
         p.setStatus(new PedidoEmPreparacao());
-        return "Seu está em preparação";
+        return "Seu pedido está em preparação";
     }
 
     @Override

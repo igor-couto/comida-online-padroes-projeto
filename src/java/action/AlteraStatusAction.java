@@ -44,7 +44,6 @@ public class AlteraStatusAction implements Action{
                     int status = pedido.getStatus().getStatusID()<5 ? pedido.getStatus().getStatusID()+1 : 5;
                     
                     pedido.setStatus(Pedido.getClassStatus(status));
-                    System.out.println(pedido.getStatus().getStatusID());
                     PedidoDAO.getInstance().Edit(pedido);
                     
                     response.sendRedirect("pedidoAlterado.jsp");

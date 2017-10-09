@@ -14,14 +14,14 @@ public class Pedido {
     public static SimpleDateFormat dataFormato = new SimpleDateFormat("dd/MM/yy");
     protected FormaPagamento formaPagamento;
 
-    public Pedido(int id, Date date, Date ultimaAlteracao, PedidoStatus status, Usuario usuario, List<Produto> produtos) {
+    public Pedido(int id, Date date, Date ultimaAlteracao, PedidoStatus status, Usuario usuario, FormaPagamento formaPagamento, List<Produto> produtos) {
         this.id = id;
         this.date = date;
         this.ultimaAlteracao = ultimaAlteracao;
         this.status = status;
         this.usuario = usuario;
         this.produtos = produtos;
-        this.formaPagamento=new PagamentoDinheiro();
+        this.formaPagamento=formaPagamento;
         
     }
 
@@ -118,6 +118,16 @@ public class Pedido {
         return formaPagamento.precoFinal(total);
     }
     
+    public static FormaPagamento getClassPagamento(int i){
+        FormaPagamento pagamento;
+        if(i==2){
+            pagamento=new PagamentoCartao();
+        }else{
+            pagamento=new PagamentoDinheiro();
+        }
+        
+        return pagamento;
+    }
     public static PedidoStatus getClassStatus(int i){
         PedidoStatus status;
         switch (i) {

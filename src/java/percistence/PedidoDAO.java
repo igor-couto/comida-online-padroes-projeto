@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import model.FormaPagamento;
+import model.PagamentoCartao;
 import model.Pedido;
 import model.PedidoAberto;
 import model.PedidoRecebido;
@@ -124,7 +126,7 @@ public class PedidoDAO {
             while(rs.next()){
                 
                 //Aqui tem que criar o pedido com o status correto.
-                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoAberto(), usuario, new ArrayList<>());
+                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), new PedidoAberto(), usuario,new PagamentoCartao(), new ArrayList<>());
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
@@ -161,7 +163,7 @@ public class PedidoDAO {
                 Usuario usuarioPedido=UsuarioDAO.getInstance().getUsuario(Integer.parseInt(rs.getString("idUsuario")));
                 
                 //Aqui tem que criar o pedido com o status correto.
-                Pedido pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, new ArrayList<>());
+                Pedido pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido,Pedido.getClassPagamento(rs.getInt("tipoPagamento")), new ArrayList<>());
                 
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
@@ -212,8 +214,8 @@ public class PedidoDAO {
                 
                 Usuario usuarioPedido=UsuarioDAO.getInstance().getUsuario(Integer.parseInt(rs.getString("idUsuario")));
                 
-                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido, new ArrayList<>());
-                System.out.println(Pedido.getClassStatus(rs.getInt("status")));
+                pedido = new Pedido(rs.getInt("idPedido"), rs.getDate("data"), rs.getDate("data"), Pedido.getClassStatus(rs.getInt("status")),usuarioPedido,Pedido.getClassPagamento(rs.getInt("tipoPagamento")), new ArrayList<>());
+
                 List<Produto> produtos = ProdutoDAO.getInstance().getProdutosPedido(pedido);
                 
                 pedido.setProdutos(produtos);

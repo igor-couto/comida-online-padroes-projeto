@@ -14,12 +14,12 @@ public class PedidoRecebido implements PedidoStatus{
 
     @Override
     public String Aberto(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Seu pedido já foi recebido. Não foi possível realizar esta operação";
     }
 
     @Override
     public String Recebido(Pedido p) {
-        return "Não foi possível realizar esta operação";
+        return "Seu pedido já foi recebido";
     }
 
     @Override
