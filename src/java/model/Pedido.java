@@ -14,6 +14,14 @@ public class Pedido {
     public static SimpleDateFormat dataFormato = new SimpleDateFormat("dd/MM/yy");
     protected FormaPagamento formaPagamento;
 
+    public PedidoMemento saveToMemento(){
+        return new PedidoMemento(status);
+    }
+    
+    public void restoreFromMemento(PedidoMemento memento){
+        status = memento.getEstadoSalvo();
+    }
+    
     public Pedido(int id, Date date, Date ultimaAlteracao, PedidoStatus status, Usuario usuario, FormaPagamento formaPagamento, List<Produto> produtos) {
         this.id = id;
         this.date = date;
