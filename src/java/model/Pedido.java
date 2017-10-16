@@ -17,6 +17,10 @@ public class Pedido {
     
     protected ArrayList<PedidoMemento> estadoSalvos = new ArrayList();
 
+    public ArrayList<PedidoMemento> getEstadoSalvos() {
+        return estadoSalvos;
+    }
+
     public void guardarPedido (){
          estadoSalvos.add( saveToMemento() );
     }
@@ -28,6 +32,8 @@ public class Pedido {
     public void restoreFromMemento(PedidoMemento memento){
         status = memento.getEstadoSalvo();
     }
+    
+
     
     public Pedido(int id, Date date, Date ultimaAlteracao, PedidoStatus status, Usuario usuario, FormaPagamento formaPagamento, List<Produto> produtos) {
         this.id = id;
