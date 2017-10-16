@@ -39,7 +39,7 @@ public class SaiuEntregaAction implements Action{
                 Pedido pedido = PedidoDAO.getInstance().getPedido(id);
                 if(pedido!=null){
                     
-                    String m=pedido.getStatus().SaiuEntrega(pedido);
+                    String m = pedido.getStatus().SaiuEntrega(pedido);
                     
                     PedidoDAO.getInstance().Edit(pedido);
                     

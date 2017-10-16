@@ -1,6 +1,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,13 @@ public class Pedido {
     protected List<Produto> produtos;
     public static SimpleDateFormat dataFormato = new SimpleDateFormat("dd/MM/yy");
     protected FormaPagamento formaPagamento;
+    
+    protected ArrayList<PedidoMemento> estadoSalvos = new ArrayList();
 
+    public void guardarPedido (){
+         estadoSalvos.add( saveToMemento() );
+    }
+    
     public PedidoMemento saveToMemento(){
         return new PedidoMemento(status);
     }
